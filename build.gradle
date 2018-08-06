@@ -25,3 +25,27 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext {
+
+    // SDK and tools
+    minSdkVersion = 21
+    targetSdkVersion = 27
+    compileSdkVersion = 27
+    buildToolsVersion = '27.1.1'
+    applicationId = 'com.xmoba.xmoba'
+    versionCode = 1
+    versionName = '1.0'
+
+    // Common dependencies versions
+    jUnitVersion = '4.12'
+    testRunnerVersion = '1.0.2'
+    espressoCoreVersion = '3.0.2'
+    rxJavaVersion = '2.1.12'
+    daggerVersion = '2.15'
+    glassfishAnnotationVersion = '10.0-b28'
+    rxAndroidVersion = '2.0.2'
+    retrofitVersion = '2.4.0'
+    mockitoVersion = '1.5.0'
+}
+
