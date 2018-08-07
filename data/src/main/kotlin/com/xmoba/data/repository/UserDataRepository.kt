@@ -14,11 +14,11 @@ class UserDataRepository @Inject constructor(
         private val factory: UserDataSourceFactory,
         private val userEntityMapper: UserEntityMapper): UserRepository {
 
-    override fun getUsers(): Observable<List<User>> {
+    override fun getUsers(page: Int, pageSize: Int): Observable<List<User>> {
 
         val dataSource = factory.getDataSource()
 
-        return dataSource.getUsers()
+        return dataSource.getUsers(page, pageSize)
                 .map { this.userEntityMapper.mapList(it) }
     }
 }

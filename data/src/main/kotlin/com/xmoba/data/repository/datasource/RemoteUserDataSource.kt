@@ -9,11 +9,13 @@ import javax.inject.Inject
 /**
  * Created by david on 7/8/18.
  */
-class RemoteUserDataSource @Inject constructor(private val retrofit: Retrofit): UserDataSource  {
+class RemoteUserDataSource @Inject constructor(private val retrofit: Retrofit): UserDataSource {
 
-    override fun getUsers(): Observable<List<UserEntity>> {
+    override fun getUsers(page: Int, pageSize: Int): Observable<List<UserEntity>> {
 
         DaggerNetworkComponent.builder().build().inject(this)
-        return retrofit.create(ApiService::class.java).getUsers()
+        return retrofit.create(ApiService::class.java)
+                .getUsers(page, pageSize)
+                .map { it -> it.results }
     }
 }

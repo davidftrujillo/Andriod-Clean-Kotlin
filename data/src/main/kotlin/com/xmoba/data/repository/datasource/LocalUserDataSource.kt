@@ -9,7 +9,7 @@ import javax.inject.Inject
  */
 class LocalUserDataSource @Inject constructor(): UserDataSource {
 
-    override fun getUsers(): Observable<List<UserEntity>> {
+    override fun getUsers(page: Int, pageSize: Int): Observable<List<UserEntity>> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

@@ -8,5 +8,5 @@ import io.reactivex.Observable
  */
 interface UserDataSource {
 
-    fun getUsers(): Observable<List<UserEntity>>
+    fun getUsers(page: Int, pageSize: Int): Observable<List<UserEntity>>
 }

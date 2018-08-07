@@ -19,6 +19,7 @@ class UserListPresenter @Inject constructor(
         private val userMapper: UserMapper): BasePresenter {
 
     private var userListView: UserListView? = null
+    private var currentPage: Int = -1
 
     override fun getView(): BaseView? = this.userListView
 
@@ -54,7 +55,7 @@ class UserListPresenter @Inject constructor(
                     userListView?.hideLoading()
                 }
             }
-        })
+        }, ++currentPage)
     }
 
     fun onUserClicked(user: UserView) {

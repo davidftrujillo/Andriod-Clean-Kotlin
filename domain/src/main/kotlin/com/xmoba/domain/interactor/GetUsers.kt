@@ -13,10 +13,12 @@ import javax.inject.Inject
 class GetUsers @Inject constructor(
         private val userRepository: UserRepository,
         threadExecutor: ThreadExecutor,
-        postExecutionThread: PostExecutionThread): UseCaseArgumentless<List<User>>(threadExecutor, postExecutionThread) {
+        postExecutionThread: PostExecutionThread): UseCase<List<User>, Int>(threadExecutor, postExecutionThread) {
 
-    override fun buildUseCaseObservable(): Observable<List<User>> {
+    private val pageSize = 10
 
-        return userRepository.getUsers()
+    override fun buildUseCaseObservable(page: Int): Observable<List<User>> {
+
+        return userRepository.getUsers(page, pageSize)
     }
 }
