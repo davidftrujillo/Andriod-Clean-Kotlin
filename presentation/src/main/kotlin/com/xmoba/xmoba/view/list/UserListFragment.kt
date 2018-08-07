@@ -1,9 +1,13 @@
 package com.xmoba.xmoba.view.list
 
 import android.os.Bundle
+import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import com.xmoba.xmoba.R
+import com.xmoba.xmoba.extensions.gone
 import com.xmoba.xmoba.extensions.toastShort
+import com.xmoba.xmoba.extensions.visible
 import com.xmoba.xmoba.internal.di.components.UserComponent
 import com.xmoba.xmoba.model.UserView
 import com.xmoba.xmoba.presenter.BasePresenter
@@ -19,8 +23,8 @@ class UserListFragment : BaseFragment(), UserListView {
 
     @Inject
     lateinit var presenter: UserListPresenter
-//    @Inject
-//    lateinit var adapter: UserListAdapter
+    @Inject
+    lateinit var adapter: UserListAdapter
 
     // ------------------------------------------------------------------------------------
     // --- Start initialization
@@ -59,8 +63,15 @@ class UserListFragment : BaseFragment(), UserListView {
 
     override fun showUsers(userViewList: List<UserView>?) {
 
-        userViewList?.forEach {
-            Log.d(getFragmentTag(), it.toString())
+        userViewList?.let {
+
+            this.adapter.addUsers(userViewList)
+            this.adapter.setOnUserClickListener(object : UserListClickListener {
+                override fun onUserClicked(user: UserView) {
+
+                    presenter?.onUserClicked(user)
+                }
+            })
         }
     }
 
@@ -86,13 +97,41 @@ class UserListFragment : BaseFragment(), UserListView {
 
     override fun prepareView() {
 
-//        setUpRecyclerView()
+        setupRecyclerView()
 
         presenter?.setView(this)
         presenter?.initialize()
     }
 
+    override fun showLoading() {
+
+        super.showLoading()
+
+        pbLoading.visible()
+    }
+
+    override fun hideLoading() {
+
+        super.hideLoading()
+
+        pbLoading.gone()
+    }
+
     // ------------------------------------------------------------------------------------
     // --- End BaseFragment overrides
+    // ------------------------------------------------------------------------------------
+
+    // ------------------------------------------------------------------------------------
+    // --- Start private methods
+    // ------------------------------------------------------------------------------------
+
+    private fun setupRecyclerView() {
+
+        rvUsers.layoutManager = LinearLayoutManager(context())
+        rvUsers.adapter = adapter
+    }
+
+    // ------------------------------------------------------------------------------------
+    // --- End private methods
     // ------------------------------------------------------------------------------------
 }
