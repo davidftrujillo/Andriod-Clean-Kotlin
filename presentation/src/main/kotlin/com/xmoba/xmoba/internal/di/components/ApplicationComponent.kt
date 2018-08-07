@@ -2,8 +2,10 @@ package com.xmoba.xmoba.internal.di.components
 
 import android.app.Activity
 import android.content.Context
+import com.xmoba.data.internal.di.modules.NetworkModule
 import com.xmoba.domain.executor.PostExecutionThread
 import com.xmoba.domain.executor.ThreadExecutor
+import com.xmoba.domain.repository.UserRepository
 import com.xmoba.xmoba.internal.di.modules.ApplicationModule
 import dagger.Component
 import javax.inject.Singleton
@@ -14,7 +16,7 @@ import javax.inject.Singleton
  * A component whose lifetime is the life of the application
  */
 @Singleton
-@Component(modules = [(ApplicationModule::class)])
+@Component(modules = [(ApplicationModule::class), (NetworkModule::class)])
 interface ApplicationComponent {
 
     fun inject(activity: Activity)
@@ -22,4 +24,5 @@ interface ApplicationComponent {
     fun context(): Context
     fun threadExecutor(): ThreadExecutor
     fun postExecutionThread(): PostExecutionThread
+    fun userRepository(): UserRepository
 }
