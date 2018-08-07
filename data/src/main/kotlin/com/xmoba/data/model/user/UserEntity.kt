@@ -14,6 +14,6 @@ data class UserEntity(
         val phone: String,
         val cell: String,
         val id: NameValueEntity,
-        val picture: PictureEntity,
+        val picture: UserPictureEntity,
         val nat: String
 )

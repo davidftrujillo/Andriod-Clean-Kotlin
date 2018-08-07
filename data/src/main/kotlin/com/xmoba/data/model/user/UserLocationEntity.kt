@@ -9,5 +9,5 @@ data class UserLocationEntity(
         val state: String,
         val postCode: Int,
         val coordinates: CoordinatesEntity,
-        val timezone: TimezoneEntity
+        val timezone: TimezoneEntity?
 )
