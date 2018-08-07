@@ -7,7 +7,7 @@ import javax.inject.Inject
 /**
  * Created by david on 7/8/18.
  */
-class UserNameMapper @Inject constructor(): Mapper<UserNameEntity, UserName> {
+class UserNameEntityMapper @Inject constructor(): Mapper<UserNameEntity, UserName> {
 
     override fun map(entityObject: UserNameEntity): UserName {
 

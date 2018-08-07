@@ -3,8 +3,10 @@ package com.xmoba.xmoba.internal.di.modules
 import android.app.Application
 import android.content.Context
 import com.xmoba.data.executor.JobExecutor
+import com.xmoba.data.repository.UserDataRepository
 import com.xmoba.domain.executor.PostExecutionThread
 import com.xmoba.domain.executor.ThreadExecutor
+import com.xmoba.domain.repository.UserRepository
 import com.xmoba.xmoba.UIThread
 import dagger.Module
 import dagger.Provides
@@ -40,5 +42,12 @@ class ApplicationModule(private val application: Application) {
     @Singleton
     fun providePostExecutionThread(uiThread: UIThread): PostExecutionThread {
         return uiThread
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserRepository(userDataRepository: UserDataRepository): UserRepository {
+
+        return userDataRepository
     }
 }
