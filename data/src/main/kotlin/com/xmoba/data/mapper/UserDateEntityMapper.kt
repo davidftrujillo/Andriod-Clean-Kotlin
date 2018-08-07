@@ -8,7 +8,7 @@ import javax.inject.Inject
 /**
  * Created by david on 7/8/18.
  */
-class UserDateMapper @Inject constructor(): Mapper<UserDateEntity, UserDate> {
+class UserDateEntityMapper @Inject constructor(): Mapper<UserDateEntity, UserDate> {
 
     override fun map(entityObject: UserDateEntity): UserDate {
 

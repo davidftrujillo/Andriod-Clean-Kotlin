@@ -7,10 +7,10 @@ import javax.inject.Inject
 /**
  * Created by david on 7/8/18.
  */
-class UserMapper @Inject constructor(private val userPictureMapper: UserPictureMapper,
-                                     private val userNameMapper: UserNameMapper,
-                                     private val userDateMapper: UserDateMapper,
-                                     private val userLocationMapper: UserLocationMapper): Mapper<UserEntity, User> {
+class UserEntityMapper @Inject constructor(private val userPictureMapper: UserPictureEntityMapper,
+                                           private val userNameMapper: UserNameEntityMapper,
+                                           private val userDateMapper: UserDateEntityMapper,
+                                           private val userLocationMapper: UserLocationEntityMapper): Mapper<UserEntity, User> {
 
     override fun map(entityObject: UserEntity): User {
 

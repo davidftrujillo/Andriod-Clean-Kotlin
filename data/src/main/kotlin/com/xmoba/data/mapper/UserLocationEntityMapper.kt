@@ -7,7 +7,7 @@ import javax.inject.Inject
 /**
  * Created by david on 7/8/18.
  */
-class UserLocationMapper @Inject constructor(): Mapper<UserLocationEntity, UserLocation> {
+class UserLocationEntityMapper @Inject constructor(): Mapper<UserLocationEntity, UserLocation> {
 
     override fun map(entityObject: UserLocationEntity): UserLocation {
 
