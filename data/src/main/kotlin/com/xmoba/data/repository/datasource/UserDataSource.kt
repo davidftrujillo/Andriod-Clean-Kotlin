@@ -9,4 +9,6 @@ import io.reactivex.Observable
 interface UserDataSource {
 
     fun getUsers(page: Int, pageSize: Int): Observable<List<UserEntity>>
+
+    fun getUserByEmail(email: String): Observable<UserEntity>
 }

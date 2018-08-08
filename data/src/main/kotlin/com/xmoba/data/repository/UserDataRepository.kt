@@ -29,6 +29,13 @@ class UserDataRepository @Inject constructor(
                 .map { this.userEntityMapper.mapList(it) }
     }
 
+    override fun getUserByEmail(email: String): Observable<User> {
+
+        val dataSource = factory.getLocalDataSource()
+
+        return dataSource.getUserByEmail(email).map { this.userEntityMapper.map(it) }
+    }
+
     private fun saveUsers(users: List<UserEntity>): Completable {
 
         for (user in users) {
