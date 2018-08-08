@@ -12,13 +12,12 @@ import com.xmoba.data.model.database.converters.PostCodeConverter
  */
 @Entity(tableName = "user")
 data class UserEntity(
-        @PrimaryKey(autoGenerate = true)
-        val _id: Int,
         val gender: String,
         @Embedded
         val name: UserNameEntity,
         @Embedded
         val location: UserLocationEntity,
+        @PrimaryKey
         val email: String,
         @Embedded
         val login: UserLoginEntity,
