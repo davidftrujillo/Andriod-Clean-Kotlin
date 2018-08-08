@@ -79,6 +79,12 @@ class UserListFragment : BaseFragment(), UserListView {
         toastShort("${user.userName.title} ${user.userName.firstName} ${user.userName.lastName}")
     }
 
+    override fun disableListPagination() {
+
+        adapter?.setPaginationEnabled(false)
+        adapter?.notifyDataSetChanged()
+    }
+
     // ------------------------------------------------------------------------------------
     // --- End UserListView overrides
     // ------------------------------------------------------------------------------------

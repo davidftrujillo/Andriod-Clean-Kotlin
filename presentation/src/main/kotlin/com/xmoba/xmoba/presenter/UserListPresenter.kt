@@ -46,6 +46,9 @@ class UserListPresenter @Inject constructor(
         if (currentPage < maxPages) {
 
             executeInteractor()
+        } else {
+
+            this.userListView?.disableListPagination()
         }
     }
 

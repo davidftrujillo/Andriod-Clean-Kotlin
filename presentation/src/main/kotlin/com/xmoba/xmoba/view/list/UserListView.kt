@@ -10,4 +10,5 @@ interface UserListView: BaseView {
 
     fun navigateToUserDetail(user: UserView)
     fun showUsers(userViewList: List<UserView>?)
+    fun disableListPagination()
 }
