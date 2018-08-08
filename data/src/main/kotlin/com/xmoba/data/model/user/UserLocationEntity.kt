@@ -9,7 +9,7 @@ data class UserLocationEntity(
         val street: String,
         val city: String,
         val state: String,
-        @SerializedName("postcode") val postCode: Int,
+        @SerializedName("postcode") val postCode: Any,
         val coordinates: CoordinatesEntity,
         val timezone: TimezoneEntity?
 )
