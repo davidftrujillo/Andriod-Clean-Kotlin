@@ -20,6 +20,7 @@ class UserListPresenter @Inject constructor(
 
     private var userListView: UserListView? = null
     private var currentPage: Int = 0
+    private val maxPages = 10
 
     override fun getView(): BaseView? = this.userListView
 
@@ -42,7 +43,10 @@ class UserListPresenter @Inject constructor(
 
     fun onLoadMoreUsers() {
 
-        executeInteractor()
+        if (currentPage < maxPages) {
+
+            executeInteractor()
+        }
     }
 
     private fun executeInteractor() {

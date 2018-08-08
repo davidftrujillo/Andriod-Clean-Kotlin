@@ -28,7 +28,6 @@ class UserListFragment : BaseFragment(), UserListView {
     lateinit var adapter: UserListAdapter
 
     private var isLoading = false
-    private var isLastPage = false
 
     // ------------------------------------------------------------------------------------
     // --- Start initialization
@@ -71,6 +70,8 @@ class UserListFragment : BaseFragment(), UserListView {
 
             this.adapter.addUsers(userViewList)
         }
+
+        isLoading = false
     }
 
     override fun navigateToUserDetail(user: UserView) {
@@ -137,13 +138,12 @@ class UserListFragment : BaseFragment(), UserListView {
                 val totalItemCount = layoutManager.itemCount
                 val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
-                if (!isLoading && !isLastPage) {
-                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
-                    && firstVisibleItemPosition >= 0
-                    && totalItemCount >= 10) {
+                if (!isLoading && (visibleItemCount + firstVisibleItemPosition) >= totalItemCount
+                        && firstVisibleItemPosition >= 0
+                        && totalItemCount >= 10) {
 
-                        presenter?.onLoadMoreUsers()
-                    }
+                    isLoading = true
+                    presenter?.onLoadMoreUsers()
                 }
             }
         })
