@@ -20,6 +20,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".view.detail.UserDetailActivity"
+            android:theme="@style/AppTheme.CoordinatorTheme"
+            android:parentActivityName=".view.list.UserListActivity"/>
     </application>
 
 </manifest>
