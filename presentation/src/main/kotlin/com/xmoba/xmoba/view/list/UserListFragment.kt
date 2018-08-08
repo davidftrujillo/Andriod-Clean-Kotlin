@@ -3,6 +3,7 @@ package com.xmoba.xmoba.view.list
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import com.xmoba.xmoba.R
 import com.xmoba.xmoba.extensions.gone
@@ -25,6 +26,8 @@ class UserListFragment : BaseFragment(), UserListView {
     lateinit var presenter: UserListPresenter
     @Inject
     lateinit var adapter: UserListAdapter
+
+    private var isLoading = false
 
     // ------------------------------------------------------------------------------------
     // --- Start initialization
@@ -66,18 +69,20 @@ class UserListFragment : BaseFragment(), UserListView {
         userViewList?.let {
 
             this.adapter.addUsers(userViewList)
-            this.adapter.setOnUserClickListener(object : UserListClickListener {
-                override fun onUserClicked(user: UserView) {
-
-                    presenter?.onUserClicked(user)
-                }
-            })
         }
+
+        isLoading = false
     }
 
     override fun navigateToUserDetail(user: UserView) {
 
         toastShort("${user.userName.title} ${user.userName.firstName} ${user.userName.lastName}")
+    }
+
+    override fun disableListPagination() {
+
+        adapter?.setPaginationEnabled(false)
+        adapter?.notifyDataSetChanged()
     }
 
     // ------------------------------------------------------------------------------------
@@ -129,6 +134,32 @@ class UserListFragment : BaseFragment(), UserListView {
 
         rvUsers.layoutManager = LinearLayoutManager(context())
         rvUsers.adapter = adapter
+
+        rvUsers.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+
+                val layoutManager = rvUsers.layoutManager as LinearLayoutManager
+                val visibleItemCount = layoutManager.childCount
+                val totalItemCount = layoutManager.itemCount
+                val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+
+                if (!isLoading && (visibleItemCount + firstVisibleItemPosition) >= totalItemCount
+                        && firstVisibleItemPosition >= 0
+                        && totalItemCount >= 10) {
+
+                    isLoading = true
+                    presenter?.onLoadMoreUsers()
+                }
+            }
+        })
+
+        this.adapter.setOnUserClickListener(object : UserListClickListener {
+            override fun onUserClicked(user: UserView) {
+
+                presenter?.onUserClicked(user)
+            }
+        })
     }
 
     // ------------------------------------------------------------------------------------

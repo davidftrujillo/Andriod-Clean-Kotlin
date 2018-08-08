@@ -19,7 +19,8 @@ class UserListPresenter @Inject constructor(
         private val userMapper: UserMapper): BasePresenter {
 
     private var userListView: UserListView? = null
-    private var currentPage: Int = -1
+    private var currentPage: Int = 0
+    private val maxPages = 10
 
     override fun getView(): BaseView? = this.userListView
 
@@ -31,6 +32,27 @@ class UserListPresenter @Inject constructor(
     fun initialize() {
 
         this.userListView?.showLoading()
+
+        executeInteractor()
+    }
+
+    fun onUserClicked(user: UserView) {
+
+        userListView?.navigateToUserDetail(user)
+    }
+
+    fun onLoadMoreUsers() {
+
+        if (currentPage < maxPages) {
+
+            executeInteractor()
+        } else {
+
+            this.userListView?.disableListPagination()
+        }
+    }
+
+    private fun executeInteractor() {
 
         getUsers.execute(object : DisposableObserver<List<User>>() {
 
@@ -56,10 +78,5 @@ class UserListPresenter @Inject constructor(
                 }
             }
         }, ++currentPage)
-    }
-
-    fun onUserClicked(user: UserView) {
-
-        userListView?.navigateToUserDetail(user)
     }
 }

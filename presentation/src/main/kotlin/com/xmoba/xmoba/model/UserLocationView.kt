@@ -7,7 +7,7 @@ data class UserLocationView(
         val street: String,
         val city: String,
         val state: String,
-        val postCode: Int,
+        val postCode: String,
         val latitude: Double,
         val longitude: Double
 )

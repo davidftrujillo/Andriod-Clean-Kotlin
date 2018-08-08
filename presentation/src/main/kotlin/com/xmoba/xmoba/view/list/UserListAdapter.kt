@@ -9,36 +9,82 @@ import com.xmoba.xmoba.R
 import com.xmoba.xmoba.extensions.firstUppercase
 import com.xmoba.xmoba.extensions.gone
 import com.xmoba.xmoba.extensions.loadImage
+import com.xmoba.xmoba.extensions.visible
 import com.xmoba.xmoba.model.UserView
+import kotlinx.android.synthetic.main.cell_list_loader.view.*
 import kotlinx.android.synthetic.main.cell_user.view.*
 import javax.inject.Inject
 
 /**
  * Created by david on 7/8/18.
  */
-class UserListAdapter @Inject constructor(private val context: Context) : RecyclerView.Adapter<UserListAdapter.UserViewHolder>() {
+class UserListAdapter @Inject constructor(private val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var users: List<UserView> = emptyList()
+    private val VIEW_TYPE_USER = 0
+    private val VIEW_TYPE_LOADER = 1
+
+    private var users: ArrayList<UserView> = ArrayList()
     private var userClickListener: UserListClickListener? = null
+    private var paginationEnabled = true;
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         val layoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val view = layoutInflater.inflate(R.layout.cell_user, parent, false)
-        return UserViewHolder(view)
+        val view = layoutInflater.inflate(getCellLayout(viewType), parent, false)
+
+        return when(viewType) {
+            VIEW_TYPE_USER -> UserViewHolder(view)
+            VIEW_TYPE_LOADER -> LoaderViewHolder(view)
+            else -> {
+                throw IllegalArgumentException("Invalid View type: $viewType")
+            }
+        }
     }
 
     override fun getItemCount(): Int {
 
-        return users.size
+        return if (users.isEmpty()) 0 else users.size + 1 // +1 because of the loader footer
     }
 
-    override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
-        val userView = getItem(position)
-        userView?.let {
-            holder.bindUser(userView)
-            holder.itemView.setOnClickListener { onItemClickListener(userView) }
+        when(getItemViewType(position)) {
+            VIEW_TYPE_USER -> {
+
+                val userView = getItem(position)
+                userView?.let {
+                    (holder as UserViewHolder).bindUser(userView)
+                    holder.itemView.setOnClickListener { onItemClickListener(userView) }
+                }
+            }
+            VIEW_TYPE_LOADER -> {
+
+                if (paginationEnabled) {
+                    (holder as LoaderViewHolder).showLoader()
+                } else {
+                    (holder as LoaderViewHolder).hideLoader()
+                }
+            }
+        }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+
+        return if (position != 0 && position == itemCount - 1) {
+            VIEW_TYPE_LOADER
+        } else { VIEW_TYPE_USER }
+    }
+
+    fun setPaginationEnabled(enabled: Boolean) {
+
+        this.paginationEnabled = enabled
+    }
+
+    private fun getCellLayout(viewType: Int): Int {
+
+        return when(viewType) {
+            VIEW_TYPE_LOADER -> R.layout.cell_list_loader
+            else -> R.layout.cell_user
         }
     }
 
@@ -52,13 +98,18 @@ class UserListAdapter @Inject constructor(private val context: Context) : Recycl
 
     fun clear() {
 
-        this.users = emptyList()
+        this.users.clear()
         this.notifyDataSetChanged()
     }
 
     fun addUsers(users: List<UserView>) {
 
-        this.users = users
+        if (users == null) {
+            this.users = users
+        } else {
+            this.users.addAll(users)
+        }
+
         this.notifyDataSetChanged()
     }
 
@@ -90,6 +141,21 @@ class UserListAdapter @Inject constructor(private val context: Context) : Recycl
                 "female" == user.gender -> view.ivUserGender.setImageResource(R.mipmap.gender_female)
                 else -> view.ivUserGender.gone()
             }
+        }
+    }
+
+    class LoaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        private var view: View = itemView
+
+        fun showLoader() {
+
+            view.pbFooterLoader.visible()
+        }
+
+        fun hideLoader() {
+
+            view.pbFooterLoader.gone()
         }
     }
 }

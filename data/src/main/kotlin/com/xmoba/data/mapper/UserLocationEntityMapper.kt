@@ -13,8 +13,9 @@ class UserLocationEntityMapper @Inject constructor(): Mapper<UserLocationEntity,
 
         val latitude = entityObject.coordinates?.latitude?.toDouble()
         val longitude = entityObject.coordinates?.longitude?.toDouble()
+        val postCode = entityObject.postCode as? String ?: entityObject.postCode.toString()
 
         return UserLocation(entityObject.street, entityObject.city, entityObject.state,
-                entityObject.postCode, latitude, longitude)
+                postCode, latitude, longitude)
     }
 }
