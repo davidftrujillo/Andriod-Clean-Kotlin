@@ -18,6 +18,10 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
+    configurations.all {
+        resolutionStrategy.force 'android.arch.core:runtime:1.1.0'
+    }
+
     sourceSets {
         test.java.srcDirs += 'src/test/kotlin'
         main.java.srcDirs += 'src/main/kotlin'
