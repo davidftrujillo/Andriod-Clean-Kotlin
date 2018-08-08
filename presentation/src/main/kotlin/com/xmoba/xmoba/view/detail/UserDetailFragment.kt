@@ -3,11 +3,17 @@ package com.xmoba.xmoba.view.detail
 import android.os.Bundle
 import android.view.View
 import com.xmoba.xmoba.R
+import com.xmoba.xmoba.extensions.firstUppercase
+import com.xmoba.xmoba.extensions.loadImage
+import com.xmoba.xmoba.extensions.toStringWithFormat
 import com.xmoba.xmoba.internal.di.components.UserComponent
+import com.xmoba.xmoba.model.UserDateView
+import com.xmoba.xmoba.model.UserView
 import com.xmoba.xmoba.presenter.BasePresenter
 import com.xmoba.xmoba.presenter.UserDetailPresenter
 import com.xmoba.xmoba.view.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_user_detail.*
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -88,6 +94,33 @@ class UserDetailFragment: BaseFragment(), UserDetailView {
     // ------------------------------------------------------------------------------------
     // --- Start UserDetailView overrides
     // ------------------------------------------------------------------------------------
+
+    override fun updateView(user: UserView) {
+
+        collapsingToolbar.title = "${user.userName.firstName.firstUppercase()} ${user.userName.lastName.firstUppercase()}"
+        ivUserPhoto.loadImage(user.picture.large)
+        tvDetailEmail.text = user.email
+        tvDetailLocation.text = "${user.location.street}, ${user.location.city} (${user.location.postCode}), ${user.location.state}"
+        tvDetailPhone.text = "${user.phone} / ${user.cell}"
+        updateRegistrationDate(user.registered)
+        updateBirthday(user.birthday)
+    }
+
+    private fun updateRegistrationDate(registrationDate: UserDateView) {
+
+        val registerCalendar = Calendar.getInstance()
+        registerCalendar.timeInMillis = registrationDate.date
+        val registerText = "Member since ${registerCalendar.toStringWithFormat("dd/MM/yyyy")}"
+        tvDetailMemberSince.text = registerText
+    }
+
+    private fun updateBirthday(birthday: UserDateView) {
+
+        val birthdayCalendar = Calendar.getInstance()
+        birthdayCalendar.timeInMillis = birthday.date
+        val birthdayText = "${birthdayCalendar.toStringWithFormat("dd/MM/yyyy")} (${birthday.age} years old)"
+        tvDetailBirthday.text = birthdayText
+    }
 
     // ------------------------------------------------------------------------------------
     // --- End UserDetailView overrides
