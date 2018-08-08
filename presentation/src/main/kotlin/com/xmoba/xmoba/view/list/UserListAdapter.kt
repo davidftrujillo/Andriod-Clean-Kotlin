@@ -18,7 +18,7 @@ import javax.inject.Inject
  */
 class UserListAdapter @Inject constructor(private val context: Context) : RecyclerView.Adapter<UserListAdapter.UserViewHolder>() {
 
-    private var users: List<UserView> = emptyList()
+    private var users: ArrayList<UserView> = ArrayList()
     private var userClickListener: UserListClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
@@ -52,13 +52,18 @@ class UserListAdapter @Inject constructor(private val context: Context) : Recycl
 
     fun clear() {
 
-        this.users = emptyList()
+        this.users.clear()
         this.notifyDataSetChanged()
     }
 
     fun addUsers(users: List<UserView>) {
 
-        this.users = users
+        if (users == null) {
+            this.users = users
+        } else {
+            this.users.addAll(users)
+        }
+
         this.notifyDataSetChanged()
     }
 
