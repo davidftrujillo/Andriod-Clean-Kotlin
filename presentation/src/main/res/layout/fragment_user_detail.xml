@@ -58,47 +58,67 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:text="david.fernandez@gmail.com"/>
+                tools:text="david.fernandez@gmail.com"
+                android:drawableLeft="@drawable/ic_mail"
+                android:drawablePadding="4dp"
+                android:gravity="center_vertical"
+                style="@style/NormalDark"/>
 
             <TextView
                 android:id="@+id/tvDetailPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="965951418 / 660862074"
+                tools:text="998745744 / 662112255"
                 android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="@+id/tvDetailEmail"
                 app:layout_constraintStart_toStartOf="@+id/tvDetailEmail"
-                app:layout_constraintTop_toBottomOf="@+id/tvDetailEmail" />
+                app:layout_constraintTop_toBottomOf="@+id/tvDetailEmail"
+                android:drawableLeft="@drawable/ic_phone"
+                android:drawablePadding="4dp"
+                android:gravity="center_vertical"
+                style="@style/SmallMedium"/>
 
             <TextView
                 android:id="@+id/tvDetailBirthday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="14/04/1988 (30 years old)"
+                tools:text="14/04/1988 (30 years old)"
                 app:layout_constraintEnd_toEndOf="@+id/tvDetailPhone"
                 app:layout_constraintStart_toStartOf="@+id/tvDetailPhone"
-                app:layout_constraintTop_toBottomOf="@+id/tvDetailPhone" />
+                app:layout_constraintTop_toBottomOf="@+id/tvDetailPhone"
+                android:drawableLeft="@drawable/ic_birthday"
+                android:drawablePadding="4dp"
+                android:gravity="center_vertical"
+                style="@style/SmallMedium"/>
 
             <TextView
                 android:id="@+id/tvDetailMemberSince"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Member since 06/08/2014"
+                tools:text="Member since 06/08/2014"
                 android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="@+id/tvDetailBirthday"
                 app:layout_constraintStart_toStartOf="@+id/tvDetailBirthday"
-                app:layout_constraintTop_toBottomOf="@+id/tvDetailBirthday"/>
+                app:layout_constraintTop_toBottomOf="@+id/tvDetailBirthday"
+                android:drawableLeft="@drawable/ic_membership"
+                android:drawablePadding="4dp"
+                android:gravity="center_vertical"
+                style="@style/SmallMedium"/>
 
             <TextView
                 android:id="@+id/tvDetailLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nàpols, Barberà del Vallés, Spain"
+                tools:text="Steet, City, State"
                 android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="@+id/tvDetailMemberSince"
                 app:layout_constraintStart_toStartOf="@+id/tvDetailMemberSince"
-                app:layout_constraintTop_toBottomOf="@+id/tvDetailMemberSince"/>
+                app:layout_constraintTop_toBottomOf="@+id/tvDetailMemberSince"
+                android:drawableLeft="@drawable/ic_location"
+                android:drawablePadding="4dp"
+                android:gravity="center_vertical"
+                style="@style/SmallMedium"/>
 
             <com.google.android.gms.maps.MapView
                 android:id="@+id/mapDetaiLocation"
