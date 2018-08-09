@@ -1,6 +1,6 @@
 package com.xmoba.data.repository.datasource
 
-import com.xmoba.data.model.database.dao.UserDao
+import com.xmoba.data.persistence.database.dao.UserDao
 import com.xmoba.data.model.user.UserEntity
 import io.reactivex.Observable
 import javax.inject.Inject

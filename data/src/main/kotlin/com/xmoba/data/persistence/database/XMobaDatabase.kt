@@ -1,13 +1,13 @@
-package com.xmoba.data.model.database
+package com.xmoba.data.persistence.database
 
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.RoomDatabase
 import android.arch.persistence.room.TypeConverters
-import com.xmoba.data.model.database.converters.ListStringConverter
-import com.xmoba.data.model.database.converters.CoordinatesConverter
-import com.xmoba.data.model.database.converters.PostCodeConverter
-import com.xmoba.data.model.database.converters.TimezoneConverter
-import com.xmoba.data.model.database.dao.UserDao
+import com.xmoba.data.persistence.database.converters.ListStringConverter
+import com.xmoba.data.persistence.database.converters.CoordinatesConverter
+import com.xmoba.data.persistence.database.converters.PostCodeConverter
+import com.xmoba.data.persistence.database.converters.TimezoneConverter
+import com.xmoba.data.persistence.database.dao.UserDao
 import com.xmoba.data.model.user.UserEntity
 
 /**

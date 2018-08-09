@@ -13,7 +13,7 @@ class UserDataSourceFactory @Inject constructor(
 
     fun getDataSource(): UserDataSource {
 
-        // TODO for now, return always the remote one
+        // TODO for now, return always the remote one. We can implement some policy to know when use remote or local data source
         return getRemoteDataSource()
     }
 

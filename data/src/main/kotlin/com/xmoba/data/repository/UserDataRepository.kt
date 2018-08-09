@@ -1,7 +1,7 @@
 package com.xmoba.data.repository
 
 import com.xmoba.data.mapper.UserEntityMapper
-import com.xmoba.data.model.database.dao.UserDao
+import com.xmoba.data.persistence.database.dao.UserDao
 import com.xmoba.data.model.user.UserEntity
 import com.xmoba.data.repository.datasource.UserDataSourceFactory
 import com.xmoba.domain.model.User

@@ -3,9 +3,6 @@ package com.xmoba.data.model.user
 import android.arch.persistence.room.Embedded
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
-import android.arch.persistence.room.TypeConverters
-import com.xmoba.data.model.database.converters.CoordinatesConverter
-import com.xmoba.data.model.database.converters.PostCodeConverter
 
 /**
  * Created by david on 6/8/18.
