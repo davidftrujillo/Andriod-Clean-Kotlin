@@ -3,11 +3,14 @@ package com.xmoba.data.repository
 import com.xmoba.data.mapper.UserEntityMapper
 import com.xmoba.data.persistence.database.dao.UserDao
 import com.xmoba.data.model.user.UserEntity
+import com.xmoba.data.persistence.sharedpreferences.KeyValueStorage
+import com.xmoba.data.repository.datasource.UserDataSource
 import com.xmoba.data.repository.datasource.UserDataSourceFactory
 import com.xmoba.domain.model.User
 import com.xmoba.domain.repository.UserRepository
 import io.reactivex.Completable
 import io.reactivex.Observable
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -15,16 +18,34 @@ import javax.inject.Inject
  */
 class UserDataRepository @Inject constructor(
         private val factory: UserDataSourceFactory,
+        private val keyValueStorage: KeyValueStorage,
         private val userEntityMapper: UserEntityMapper,
-        private val userDao: UserDao): UserRepository {
+        private val userDao: UserDao) : UserRepository {
+
+    private val FIVE_MINUTES_MILLIS = 300000L
 
     override fun getUsers(page: Int, pageSize: Int): Observable<List<User>> {
 
-        val dataSource = factory.getDataSource()
+        val now = System.currentTimeMillis()
+        val lastRequest = keyValueStorage.readLong("last_request_get_users_${page}_$pageSize")
+        var needToSave: Boolean
+        var dataSource: UserDataSource?
+
+        if (Math.abs(now - lastRequest) < FIVE_MINUTES_MILLIS) {
+            dataSource = factory.getLocalDataSource()
+            needToSave = false
+        } else {
+            dataSource = factory.getRemoteDataSource()
+            needToSave = true
+        }
 
         return dataSource.getUsers(page, pageSize)
                 .flatMap {
-                    saveUsers(it).toSingleDefault(it).toObservable()
+                    if (needToSave) {
+                        saveUsers(it).toSingleDefault(it).toObservable()
+                    } else {
+                        Observable.just(it)
+                    }
                 }
                 .map { this.userEntityMapper.mapList(it) }
     }
