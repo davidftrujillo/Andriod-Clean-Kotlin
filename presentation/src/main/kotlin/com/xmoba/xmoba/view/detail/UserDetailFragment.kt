@@ -1,13 +1,23 @@
 package com.xmoba.xmoba.view.detail
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.MapView
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.xmoba.xmoba.R
 import com.xmoba.xmoba.extensions.firstUppercase
 import com.xmoba.xmoba.extensions.loadImage
 import com.xmoba.xmoba.extensions.toStringWithFormat
 import com.xmoba.xmoba.internal.di.components.UserComponent
 import com.xmoba.xmoba.model.UserDateView
+import com.xmoba.xmoba.model.UserLocationView
+import com.xmoba.xmoba.model.UserNameView
 import com.xmoba.xmoba.model.UserView
 import com.xmoba.xmoba.presenter.BasePresenter
 import com.xmoba.xmoba.presenter.UserDetailPresenter
@@ -19,10 +29,13 @@ import javax.inject.Inject
 /**
  * Created by david on 8/8/18.
  */
-class UserDetailFragment: BaseFragment(), UserDetailView {
+class UserDetailFragment : BaseFragment(), UserDetailView, OnMapReadyCallback {
 
     @Inject
     lateinit var presenter: UserDetailPresenter
+
+    var mapView: MapView? = null
+    var googleMap: GoogleMap? = null
 
     // ------------------------------------------------------------------------------------
     // --- Start initialization
@@ -49,6 +62,52 @@ class UserDetailFragment: BaseFragment(), UserDetailView {
 
         super.onCreate(savedInstanceState)
         getComponent(UserComponent::class.java).inject(this)
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+        val view = super.onCreateView(inflater, container, savedInstanceState)
+        mapView = view?.findViewById(R.id.mapDetaiLocation) as MapView
+        mapView?.onCreate(savedInstanceState)
+        mapView?.getMapAsync(this)
+        return view
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+
+        super.onSaveInstanceState(outState)
+
+        mapView?.onSaveInstanceState(outState)
+    }
+
+    override fun onResume() {
+
+        super.onResume()
+        mapView?.onResume()
+    }
+
+    override fun onPause() {
+
+        super.onPause()
+        mapView?.onPause()
+    }
+
+    override fun onStop() {
+
+        super.onStop()
+        mapView?.onStop()
+    }
+
+    override fun onDestroy() {
+
+        super.onDestroy()
+        mapView?.onDestroy()
+    }
+
+    override fun onLowMemory() {
+
+        super.onLowMemory()
+        mapView?.onLowMemory()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -104,6 +163,8 @@ class UserDetailFragment: BaseFragment(), UserDetailView {
         tvDetailPhone.text = "${user.phone} / ${user.cell}"
         updateRegistrationDate(user.registered)
         updateBirthday(user.birthday)
+
+        updateLocation(user.userName, user.location)
     }
 
     private fun updateRegistrationDate(registrationDate: UserDateView) {
@@ -122,7 +183,42 @@ class UserDetailFragment: BaseFragment(), UserDetailView {
         tvDetailBirthday.text = birthdayText
     }
 
+    private fun updateLocation(userName: UserNameView, location: UserLocationView) {
+
+        googleMap ?: return
+
+        val latLng = LatLng(location.latitude, location.longitude)
+        with(googleMap!!) {
+            moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13f))
+            addMarker(MarkerOptions().position(latLng).title("${userName.firstName}".firstUppercase()))
+        }
+    }
+
     // ------------------------------------------------------------------------------------
     // --- End UserDetailView overrides
+    // ------------------------------------------------------------------------------------
+
+    // ------------------------------------------------------------------------------------
+    // --- Start maps related stuff
+    // ------------------------------------------------------------------------------------
+
+    override fun onMapReady(map: GoogleMap?) {
+
+        map ?: return
+        with(map) {
+            googleMap = map
+            uiSettings.isZoomControlsEnabled = false
+            uiSettings.isCompassEnabled = false
+            uiSettings.isMyLocationButtonEnabled = false
+            uiSettings.isZoomGesturesEnabled = false
+            uiSettings.isRotateGesturesEnabled = false
+            uiSettings.isScrollGesturesEnabled = false
+
+            addMarker(MarkerOptions().position(LatLng(-33.862, 151.21)).title("User name"))
+        }
+    }
+
+    // ------------------------------------------------------------------------------------
+    // --- End maps related stuff
     // ------------------------------------------------------------------------------------
 }

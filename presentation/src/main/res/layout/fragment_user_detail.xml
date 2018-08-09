@@ -100,6 +100,17 @@
                 app:layout_constraintStart_toStartOf="@+id/tvDetailMemberSince"
                 app:layout_constraintTop_toBottomOf="@+id/tvDetailMemberSince"/>
 
+            <com.google.android.gms.maps.MapView
+                android:id="@+id/mapDetaiLocation"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/tvDetailLocation"
+                app:layout_constraintStart_toStartOf="@+id/tvDetailLocation"
+                app:layout_constraintTop_toBottomOf="@+id/tvDetailLocation">
+
+            </com.google.android.gms.maps.MapView>
+
         </android.support.constraint.ConstraintLayout>
 
     </android.support.v4.widget.NestedScrollView>

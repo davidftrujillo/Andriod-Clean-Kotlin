@@ -40,6 +40,7 @@ ext {
     supportLibraryVersion = '27.1.0'
     contraintLayoutVersion = '1.1.0'
     picassoVersion = '2.71828'
+    playServicesVersion = '11.8.0'
 }
 
 dependencies {
@@ -60,6 +61,7 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
     implementation "com.squareup.picasso:picasso:$picassoVersion"
+    implementation "com.google.android.gms:play-services-maps:$playServicesVersion"
 
     testImplementation "junit:junit:$jUnitVersion"
     testImplementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
