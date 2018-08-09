@@ -28,5 +28,6 @@ data class UserEntity(
         val id: NameValueEntity,
         @Embedded
         val picture: UserPictureEntity,
-        val nat: String
+        val nat: String,
+        var order: Int
 )

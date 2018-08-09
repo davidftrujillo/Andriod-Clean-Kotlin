@@ -42,7 +42,7 @@ class UserDataRepository @Inject constructor(
         return dataSource.getUsers(page, pageSize)
                 .flatMap {
                     if (needToSave) {
-                        saveUsers(it).toSingleDefault(it).toObservable()
+                        saveUsers(it, page, pageSize).toSingleDefault(it).toObservable()
                     } else {
                         Observable.just(it)
                     }
@@ -57,9 +57,12 @@ class UserDataRepository @Inject constructor(
         return dataSource.getUserByEmail(email).map { this.userEntityMapper.map(it) }
     }
 
-    private fun saveUsers(users: List<UserEntity>): Completable {
+    private fun saveUsers(users: List<UserEntity>, page: Int, pageSize: Int): Completable {
+
+        var orderStart = (page * pageSize) - pageSize
 
         for (user in users) {
+            user.order = orderStart++
             userDao.insert(user)
         }
         return Completable.complete()

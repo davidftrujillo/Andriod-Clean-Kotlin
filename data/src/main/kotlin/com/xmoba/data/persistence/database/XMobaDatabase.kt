@@ -13,7 +13,7 @@ import com.xmoba.data.model.user.UserEntity
 /**
  * Created by david on 8/8/18.
  */
-@Database(entities = [UserEntity::class], version = 3)
+@Database(entities = [UserEntity::class], version = 4)
 @TypeConverters(ListStringConverter::class, PostCodeConverter::class, CoordinatesConverter::class, TimezoneConverter::class)
 abstract class XMobaDatabase : RoomDatabase() {
 

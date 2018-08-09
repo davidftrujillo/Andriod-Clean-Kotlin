@@ -20,4 +20,7 @@ interface UserDao {
 
     @Query("SELECT * FROM user WHERE email = :email")
     fun getUserByEmail(email: String): UserEntity
+
+    @Query("SELECT * FROM user ORDER BY `order` LIMIT :pageSize OFFSET :offset")
+    fun getUsers(offset: Int, pageSize: Int): List<UserEntity>
 }
