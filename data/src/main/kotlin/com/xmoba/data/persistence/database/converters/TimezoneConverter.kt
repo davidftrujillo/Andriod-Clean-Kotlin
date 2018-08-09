@@ -1,8 +1,8 @@
-package com.xmoba.data.model.database.converters
+package com.xmoba.data.persistence.database.converters
 
 import android.arch.persistence.room.TypeConverter
 import com.google.gson.Gson
-import com.xmoba.data.model.database.converters.ListStringConverter.fromJson
+import com.xmoba.data.persistence.database.converters.ListStringConverter.fromJson
 import com.xmoba.data.model.user.TimezoneEntity
 
 /**

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import com.xmoba.data.internal.di.modules.DatabaseModule
 import com.xmoba.data.internal.di.modules.NetworkModule
+import com.xmoba.data.internal.di.modules.SharedPreferencesModule
 import com.xmoba.domain.executor.PostExecutionThread
 import com.xmoba.domain.executor.ThreadExecutor
 import com.xmoba.domain.repository.UserRepository
@@ -17,7 +18,7 @@ import javax.inject.Singleton
  * A component whose lifetime is the life of the application
  */
 @Singleton
-@Component(modules = [(ApplicationModule::class), (NetworkModule::class), (DatabaseModule::class)])
+@Component(modules = [(ApplicationModule::class), (NetworkModule::class), (DatabaseModule::class), (SharedPreferencesModule::class)])
 interface ApplicationComponent {
 
     fun inject(activity: Activity)

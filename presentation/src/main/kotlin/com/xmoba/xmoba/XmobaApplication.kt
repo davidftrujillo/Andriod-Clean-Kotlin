@@ -1,6 +1,7 @@
 package com.xmoba.xmoba
 
 import android.app.Application
+import com.xmoba.data.internal.di.modules.SharedPreferencesModule
 import com.xmoba.xmoba.internal.di.components.ApplicationComponent
 import com.xmoba.xmoba.internal.di.components.DaggerApplicationComponent
 import com.xmoba.xmoba.internal.di.modules.ApplicationModule
@@ -22,6 +23,7 @@ class XmobaApplication: Application() {
 
         this.applicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(ApplicationModule(this))
+                .sharedPreferencesModule(SharedPreferencesModule(this))
                 .build()
     }
 }

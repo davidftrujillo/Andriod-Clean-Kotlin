@@ -1,7 +1,7 @@
 package com.xmoba.data.repository.datasource
 
-import com.xmoba.data.model.database.dao.UserDao
 import com.xmoba.data.model.user.UserEntity
+import com.xmoba.data.persistence.database.dao.UserDao
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -12,7 +12,9 @@ class LocalUserDataSource @Inject constructor(private val userDao: UserDao): Use
 
     override fun getUsers(page: Int, pageSize: Int): Observable<List<UserEntity>> {
 
-        throw UnsupportedOperationException("Operation not allowed. Use api requests to get user list")
+        return Observable.fromCallable ({
+            userDao.getUsers((page-1)*pageSize, pageSize)
+        })
     }
 
     override fun getUserByEmail(email: String): Observable<UserEntity> {

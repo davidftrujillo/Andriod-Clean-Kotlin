@@ -2,7 +2,7 @@ package com.xmoba.data.internal.di.modules
 
 import android.arch.persistence.room.Room
 import android.content.Context
-import com.xmoba.data.model.database.XMobaDatabase
+import com.xmoba.data.persistence.database.XMobaDatabase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

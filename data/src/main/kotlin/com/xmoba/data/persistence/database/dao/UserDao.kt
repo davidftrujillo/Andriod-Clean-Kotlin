@@ -1,4 +1,4 @@
-package com.xmoba.data.model.database.dao
+package com.xmoba.data.persistence.database.dao
 
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
@@ -20,4 +20,7 @@ interface UserDao {
 
     @Query("SELECT * FROM user WHERE email = :email")
     fun getUserByEmail(email: String): UserEntity
+
+    @Query("SELECT * FROM user ORDER BY `order` LIMIT :pageSize OFFSET :offset")
+    fun getUsers(offset: Int, pageSize: Int): List<UserEntity>
 }

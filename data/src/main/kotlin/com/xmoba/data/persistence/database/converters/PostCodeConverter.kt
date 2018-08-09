@@ -1,4 +1,4 @@
-package com.xmoba.data.model.database.converters
+package com.xmoba.data.persistence.database.converters
 
 import android.arch.persistence.room.TypeConverter
 

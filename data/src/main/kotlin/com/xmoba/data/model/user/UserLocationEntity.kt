@@ -2,9 +2,9 @@ package com.xmoba.data.model.user
 
 import android.arch.persistence.room.TypeConverters
 import com.google.gson.annotations.SerializedName
-import com.xmoba.data.model.database.converters.CoordinatesConverter
-import com.xmoba.data.model.database.converters.PostCodeConverter
-import com.xmoba.data.model.database.converters.TimezoneConverter
+import com.xmoba.data.persistence.database.converters.CoordinatesConverter
+import com.xmoba.data.persistence.database.converters.PostCodeConverter
+import com.xmoba.data.persistence.database.converters.TimezoneConverter
 
 /**
  * Created by david on 6/8/18.
