@@ -11,6 +11,14 @@ import javax.inject.Inject
 class LocalUserDataSource @Inject constructor(private val userDao: UserDao): UserDataSource {
 
     override fun getUsers(page: Int, pageSize: Int): Observable<List<UserEntity>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+        throw UnsupportedOperationException("Operation not allowed. Use api requests to get user list")
+    }
+
+    override fun getUserByEmail(email: String): Observable<UserEntity> {
+
+        return Observable.fromCallable({
+            userDao.getUserByEmail(email)
+        })
     }
 }

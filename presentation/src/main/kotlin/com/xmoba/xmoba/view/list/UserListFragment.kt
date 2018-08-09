@@ -14,6 +14,7 @@ import com.xmoba.xmoba.model.UserView
 import com.xmoba.xmoba.presenter.BasePresenter
 import com.xmoba.xmoba.presenter.UserListPresenter
 import com.xmoba.xmoba.view.base.BaseFragment
+import com.xmoba.xmoba.view.detail.UserDetailActivity
 import kotlinx.android.synthetic.main.fragment_user_list.*
 import javax.inject.Inject
 
@@ -76,7 +77,11 @@ class UserListFragment : BaseFragment(), UserListView {
 
     override fun navigateToUserDetail(user: UserView) {
 
-        toastShort("${user.userName.title} ${user.userName.firstName} ${user.userName.lastName}")
+        if (getBaseActivity() != null) {
+
+            val detailIntent = UserDetailActivity.createIntent(getBaseActivity()!!, user.email)
+            startActivity(detailIntent)
+        }
     }
 
     override fun disableListPagination() {

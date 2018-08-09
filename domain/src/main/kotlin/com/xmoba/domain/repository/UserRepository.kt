@@ -9,4 +9,6 @@ import io.reactivex.Observable
 interface UserRepository {
 
     fun getUsers(page: Int, pageSize: Int): Observable<List<User>>
+
+    fun getUserByEmail(email: String): Observable<User>
 }

@@ -18,4 +18,9 @@ class RemoteUserDataSource @Inject constructor(private val retrofit: Retrofit): 
                 .getUsers(page, pageSize)
                 .map { it -> it.results }
     }
+
+    override fun getUserByEmail(email: String): Observable<UserEntity> {
+
+        throw UnsupportedOperationException("Operation not allowed. Use persistence layer to get user detail")
+    }
 }

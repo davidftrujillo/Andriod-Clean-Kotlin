@@ -34,7 +34,8 @@
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toEndOf="@+id/ivUserImage"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="John Doe" />
+            tools:text="John Doe"
+            style="@style/SmallDark"/>
 
         <TextView
             android:id="@+id/tvUserEmail"
@@ -44,7 +45,8 @@
             android:layout_marginTop="4dp"
             app:layout_constraintStart_toEndOf="@+id/ivUserImage"
             app:layout_constraintTop_toBottomOf="@+id/tvUserName"
-            tools:text="john.doe@example.com" />
+            tools:text="john.doe@example.com"
+            style="@style/SmallMedium"/>
 
         <TextView
             android:id="@+id/tvUserPhoneCell"
@@ -54,7 +56,8 @@
             android:layout_marginTop="4dp"
             app:layout_constraintStart_toEndOf="@+id/ivUserImage"
             app:layout_constraintTop_toBottomOf="@+id/tvUserEmail"
-            tools:text="931457812 / 654125877" />
+            tools:text="931457812 / 654125877"
+            style="@style/SmallMedium"/>
 
         <TextView
             android:id="@+id/tvUserAge"
@@ -64,7 +67,8 @@
             android:layout_marginTop="4dp"
             app:layout_constraintStart_toEndOf="@+id/ivUserImage"
             app:layout_constraintTop_toBottomOf="@+id/tvUserPhoneCell"
-            tools:text="38 years old" />
+            tools:text="38 years old"
+            style="@style/SmallLight" />
 
         <ImageView
             android:id="@+id/ivUserGender"

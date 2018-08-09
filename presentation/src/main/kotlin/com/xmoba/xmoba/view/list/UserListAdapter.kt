@@ -137,8 +137,8 @@ class UserListAdapter @Inject constructor(private val context: Context) : Recycl
             view.ivUserImage.loadImage(user.picture.medium)
 
             when {
-                "male" == user.gender -> view.ivUserGender.setImageResource(R.mipmap.gender_male)
-                "female" == user.gender -> view.ivUserGender.setImageResource(R.mipmap.gender_female)
+                "male" == user.gender -> view.ivUserGender.setImageResource(R.drawable.gender_male)
+                "female" == user.gender -> view.ivUserGender.setImageResource(R.drawable.gender_female)
                 else -> view.ivUserGender.gone()
             }
         }
