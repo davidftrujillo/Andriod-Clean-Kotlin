@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Text"></style>
+
+    <style name="Text.Light">
+        <item name="android:textColor">#BBB</item>
+    </style>
+
+    <style name="SmallLight" parent="Text.Light">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="NormalLight" parent="Text.Light">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="BigLight" parent="Text.Light">
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="Text.Medium">
+        <item name="android:textColor">#666</item>
+    </style>
+
+    <style name="SmallMedium" parent="Text.Medium">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="NormalMedium" parent="Text.Medium">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="BigMedium" parent="Text.Medium">
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="Text.Dark">
+        <item name="android:textColor">#333</item>
+    </style>
+
+    <style name="SmallDark" parent="Text.Dark">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="NormalDark" parent="Text.Dark">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="BigDark" parent="Text.Dark">
+        <item name="android:textSize">24sp</item>
+    </style>
+</resources>
