@@ -5,6 +5,7 @@ import com.xmoba.data.model.user.UserEntity
 import com.xmoba.data.persistence.sharedpreferences.KeyValueStorage
 import io.reactivex.Observable
 import retrofit2.Retrofit
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -19,7 +20,10 @@ class RemoteUserDataSource @Inject constructor(
         DaggerNetworkComponent.builder().build().inject(this)
         return retrofit.create(ApiService::class.java)
                 .getUsers(page, pageSize)
-                .doOnComplete { keyValueStorage.save("last_request_get_users_${page}_$pageSize", System.currentTimeMillis()) }
+                .doOnComplete {
+                    keyValueStorage.save("last_request_get_users_${page}_$pageSize",
+                            Calendar.getInstance().timeInMillis)
+                }
                 .map { it -> it.results }
     }
 

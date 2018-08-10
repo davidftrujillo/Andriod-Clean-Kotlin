@@ -26,7 +26,7 @@ class UserDataRepository @Inject constructor(
 
     override fun getUsers(page: Int, pageSize: Int): Observable<List<User>> {
 
-        val now = System.currentTimeMillis()
+        val now = Calendar.getInstance().timeInMillis
         val lastRequest = keyValueStorage.readLong("last_request_get_users_${page}_$pageSize")
         var needToSave: Boolean
         var dataSource: UserDataSource?

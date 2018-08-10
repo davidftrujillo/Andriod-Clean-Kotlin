@@ -14,10 +14,18 @@ class UserEntityMapper @Inject constructor(private val userPictureMapper: UserPi
 
     override fun map(entityObject: UserEntity): User {
 
-        return User(entityObject.login.uuid, entityObject.gender, entityObject.email, entityObject.phone,
-                entityObject.cell, entityObject.nat, userPictureMapper.map(entityObject.picture),
-                userNameMapper.map(entityObject.name), userDateMapper.map(entityObject.dob),
-                userDateMapper.map(entityObject.registered), userLocationMapper.map(entityObject.location))
+        return User(
+                entityObject.login.uuid,
+                entityObject.gender,
+                entityObject.email,
+                entityObject.phone,
+                entityObject.cell,
+                entityObject.nat,
+                userPictureMapper.map(entityObject.picture),
+                userNameMapper.map(entityObject.name),
+                userDateMapper.map(entityObject.dob),
+                userDateMapper.map(entityObject.registered),
+                userLocationMapper.map(entityObject.location))
     }
 
 
