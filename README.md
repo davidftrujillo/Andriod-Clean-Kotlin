@@ -1,4 +1,4 @@
-# XMOBA
+# Android-Clean-Kotlin
 
 ## Clean architecture
 Taking into account the requirements of the project and the environment in which the different applications of the company will coexist, I have decided to apply an implementation of **Clean architecture** with 3 layers (data, domain and presentation).
